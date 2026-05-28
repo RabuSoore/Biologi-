@@ -1,0 +1,2296 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kisi-Kisi ASAT Biologi – Ringkasan Materi</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2236;
+    --accent1: #38bdf8;
+    --accent2: #a78bfa;
+    --accent3: #34d399;
+    --accent4: #fb923c;
+    --accent5: #f472b6;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV SIDEBAR ── */
+  #sidebar {
+    position: fixed;
+    left: 0; top: 0;
+    width: 280px; height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    z-index: 100;
+    transform: translateX(0);
+    transition: transform .35s cubic-bezier(.4,0,.2,1);
+  }
+  #sidebar::-webkit-scrollbar { width: 4px; }
+  #sidebar::-webkit-scrollbar-track { background: transparent; }
+  #sidebar::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 2px; }
+
+  .sidebar-header {
+    padding: 28px 20px 20px;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0;
+    background: var(--surface);
+    z-index: 1;
+  }
+  .sidebar-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    line-height: 1.3;
+    color: var(--accent1);
+  }
+  .sidebar-header p { font-size: .72rem; color: var(--muted); margin-top: 4px; }
+
+  .category-label {
+    padding: 16px 20px 6px;
+    font-size: .6rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 20px;
+    cursor: pointer;
+    transition: background .2s;
+    border-left: 3px solid transparent;
+    font-size: .8rem;
+    color: var(--muted);
+  }
+  .nav-item:hover { background: var(--surface2); color: var(--text); }
+  .nav-item.active {
+    background: var(--surface2);
+    color: var(--accent1);
+    border-left-color: var(--accent1);
+  }
+  .nav-item .num {
+    font-family: 'DM Mono', monospace;
+    font-size: .65rem;
+    min-width: 20px;
+    color: var(--muted);
+  }
+
+  /* ── MAIN CONTENT ── */
+  #main {
+    margin-left: 280px;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; animation: fadeSlide .4s ease; }
+  .page.active { display: block; }
+
+  @keyframes fadeSlide {
+    from { opacity:0; transform: translateY(18px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+
+  /* ── HOME PAGE ── */
+  #page-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    padding: 40px;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(56,189,248,.15) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 80%, rgba(167,139,250,.12) 0%, transparent 70%);
+  }
+  #page-home .kelas { font-family:'DM Mono',monospace; font-size:.75rem; letter-spacing:.15em; color:var(--accent3); margin-bottom:16px; }
+  #page-home h1 { font-family:'Playfair Display',serif; font-size:clamp(2.2rem,5vw,4rem); line-height:1.1; margin-bottom:16px; }
+  #page-home h1 span { color: var(--accent1); }
+  #page-home p { color: var(--muted); max-width: 480px; line-height:1.7; font-size:.95rem; }
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 12px;
+    margin-top: 48px;
+    max-width: 700px;
+    width: 100%;
+  }
+  .topic-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 14px;
+    cursor: pointer;
+    transition: all .25s;
+    text-align: left;
+  }
+  .topic-card:hover { border-color: var(--accent1); transform: translateY(-3px); }
+  .topic-card .tc-num { font-family:'DM Mono',monospace; font-size:.6rem; color:var(--accent1); margin-bottom:6px; }
+  .topic-card .tc-title { font-size:.75rem; color:var(--text); line-height:1.4; }
+
+  /* ── CONTENT PAGES ── */
+  .content-page { padding: 48px 52px; max-width: 860px; }
+
+  .page-header { margin-bottom: 36px; }
+  .page-header .topic-num {
+    font-family: 'DM Mono', monospace;
+    font-size: .7rem;
+    letter-spacing: .12em;
+    color: var(--accent1);
+    margin-bottom: 10px;
+  }
+  .page-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .page-header .tagline { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+
+  .divider {
+    width: 48px; height: 3px;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    border-radius: 2px;
+    margin: 20px 0 32px;
+  }
+
+  /* Boxes */
+  .box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+  .box h3 {
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent1);
+    margin-bottom: 14px;
+  }
+  .box.green h3 { color: var(--accent3); }
+  .box.purple h3 { color: var(--accent2); }
+  .box.orange h3 { color: var(--accent4); }
+  .box.pink h3 { color: var(--accent5); }
+
+  .box p, .box li {
+    font-size: .88rem;
+    line-height: 1.75;
+    color: #cbd5e1;
+  }
+  .box ul, .box ol { padding-left: 18px; }
+  .box li { margin-bottom: 5px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+  /* Tables */
+  table { width:100%; border-collapse: collapse; font-size:.84rem; }
+  th {
+    background: var(--surface2);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: .7rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent1);
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: #cbd5e1;
+    vertical-align: top;
+    line-height: 1.6;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  /* Tags / pills */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: .72rem;
+    font-weight: 500;
+    border: 1px solid;
+  }
+  .tag.blue { border-color: var(--accent1); color: var(--accent1); background: rgba(56,189,248,.1); }
+  .tag.green { border-color: var(--accent3); color: var(--accent3); background: rgba(52,211,153,.1); }
+  .tag.purple { border-color: var(--accent2); color: var(--accent2); background: rgba(167,139,250,.1); }
+  .tag.orange { border-color: var(--accent4); color: var(--accent4); background: rgba(251,146,60,.1); }
+  .tag.pink { border-color: var(--accent5); color: var(--accent5); background: rgba(244,114,182,.1); }
+
+  /* Cycle diagram */
+  .cycle { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-top:12px; }
+  .cycle-step {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: .78rem;
+    line-height: 1.4;
+    text-align: center;
+    min-width: 90px;
+  }
+  .cycle-arrow { color: var(--accent1); font-size: 1.1rem; }
+
+  /* Navigation buttons */
+  .page-nav {
+    display: flex;
+    gap: 12px;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: .82rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text);
+    transition: all .2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn:hover { border-color: var(--accent1); color: var(--accent1); }
+  .btn.primary {
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    border-color: transparent;
+    color: #0a0e1a;
+    font-weight: 600;
+  }
+  .btn.primary:hover { opacity: .85; color: #0a0e1a; }
+
+  /* Hamburger for mobile */
+  #toggle-btn {
+    display: none;
+    position: fixed;
+    top: 14px; left: 14px;
+    z-index: 200;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    cursor: pointer;
+    color: var(--text);
+    font-size: 1.1rem;
+  }
+
+  .highlight {
+    background: rgba(56,189,248,.12);
+    border-left: 3px solid var(--accent1);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 10px 0;
+    font-size: .87rem;
+    line-height: 1.7;
+    color: #cbd5e1;
+  }
+
+  @media (max-width: 900px) {
+    #sidebar { transform: translateX(-100%); }
+    #sidebar.open { transform: translateX(0); }
+    #main { margin-left: 0; }
+    #toggle-btn { display: block; }
+    .content-page { padding: 64px 24px 40px; }
+    .two-col, .three-col { grid-template-columns: 1fr; }
+    .topics-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<button id="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <h1>Kisi-Kisi ASAT<br>Biologi</h1>
+    <p>35 Topik Materi — Genap</p>
+  </div>
+
+  <div class="category-label">Mulai</div>
+  <div class="nav-item active" onclick="showPage('home',this)"><span class="num">⌂</span> Beranda</div>
+
+  <div class="category-label">Bioteknologi</div>
+  <div class="nav-item" onclick="showPage('p1',this)"><span class="num">01</span> Mikroorganisme Bioteknologi Konvensional</div>
+  <div class="nav-item" onclick="showPage('p2',this)"><span class="num">02</span> Prinsip Dasar Bioteknologi</div>
+  <div class="nav-item" onclick="showPage('p3',this)"><span class="num">03</span> Bioteknologi Konvensional vs Modern</div>
+  <div class="nav-item" onclick="showPage('p4',this)"><span class="num">04</span> Bioteknologi di Bidang Kedokteran</div>
+  <div class="nav-item" onclick="showPage('p5',this)"><span class="num">05</span> Tahapan Kultur Jaringan</div>
+  <div class="nav-item" onclick="showPage('p6',this)"><span class="num">06</span> Proses Kloning</div>
+  <div class="nav-item" onclick="showPage('p7',this)"><span class="num">07</span> Antibodi Monoklonal</div>
+  <div class="nav-item" onclick="showPage('p8',this)"><span class="num">08</span> Dampak Negatif Bioteknologi</div>
+  <div class="nav-item" onclick="showPage('p9',this)"><span class="num">09</span> Peran Mikroorganisme (Proses)</div>
+  <div class="nav-item" onclick="showPage('p10',this)"><span class="num">10</span> Mikroorganisme & Produknya</div>
+
+  <div class="category-label">Ekosistem</div>
+  <div class="nav-item" onclick="showPage('p11',this)"><span class="num">11</span> Ciri Ekosistem</div>
+  <div class="nav-item" onclick="showPage('p12',this)"><span class="num">12</span> Interaksi Antar Makhluk Hidup</div>
+  <div class="nav-item" onclick="showPage('p13',this)"><span class="num">13</span> Jenis Interaksi (Lanjutan)</div>
+  <div class="nav-item" onclick="showPage('p14',this)"><span class="num">14</span> Daur Fosfor</div>
+  <div class="nav-item" onclick="showPage('p15',this)"><span class="num">15</span> Jenis Organisme Perairan</div>
+  <div class="nav-item" onclick="showPage('p16',this)"><span class="num">16</span> Daur Nitrogen</div>
+  <div class="nav-item" onclick="showPage('p17',this)"><span class="num">17</span> Piramida Energi</div>
+  <div class="nav-item" onclick="showPage('p18',this)"><span class="num">18</span> Rantai Makanan</div>
+  <div class="nav-item" onclick="showPage('p19',this)"><span class="num">19</span> Nitrifikasi</div>
+  <div class="nav-item" onclick="showPage('p20',this)"><span class="num">20</span> Siklus Air</div>
+  <div class="nav-item" onclick="showPage('p21',this)"><span class="num">21</span> Zona Ekosistem Air Laut</div>
+  <div class="nav-item" onclick="showPage('p22',this)"><span class="num">22</span> Daur Sulfur</div>
+  <div class="nav-item" onclick="showPage('p23',this)"><span class="num">23</span> Komponen Biotik Ekosistem</div>
+  <div class="nav-item" onclick="showPage('p24',this)"><span class="num">24</span> Hierarki Organisasi Makhluk Hidup</div>
+  <div class="nav-item" onclick="showPage('p25',this)"><span class="num">25</span> Jaring Makanan</div>
+
+  <div class="category-label">Perubahan Iklim</div>
+  <div class="nav-item" onclick="showPage('p26',this)"><span class="num">26</span> Perbedaan Iklim & Cuaca</div>
+  <div class="nav-item" onclick="showPage('p27',this)"><span class="num">27</span> Dampak Pemanasan Global</div>
+  <div class="nav-item" onclick="showPage('p28',this)"><span class="num">28</span> Gejala Perubahan Iklim</div>
+  <div class="nav-item" onclick="showPage('p29',this)"><span class="num">29</span> Efek Rumah Kaca</div>
+  <div class="nav-item" onclick="showPage('p30',this)"><span class="num">30</span> Dampak Perubahan Iklim</div>
+  <div class="nav-item" onclick="showPage('p31',this)"><span class="num">31</span> Rusaknya Lapisan Ozon</div>
+  <div class="nav-item" onclick="showPage('p32',this)"><span class="num">32</span> Upaya Mitigasi</div>
+  <div class="nav-item" onclick="showPage('p33',this)"><span class="num">33</span> Penyebab Perubahan Iklim</div>
+  <div class="nav-item" onclick="showPage('p34',this)"><span class="num">34</span> Gejala Perubahan Iklim (Lanjutan)</div>
+  <div class="nav-item" onclick="showPage('p35',this)"><span class="num">35</span> Penyebab Perubahan Iklim (Lanjutan)</div>
+</nav>
+
+<!-- MAIN -->
+<main id="main">
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div id="page-home-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:40px;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(56,189,248,.15) 0%,transparent 70%),radial-gradient(ellipse 50% 40% at 80% 80%,rgba(167,139,250,.12) 0%,transparent 70%)">
+    <div class="kelas">BIOLOGI · SMA · SEMESTER GENAP</div>
+    <h1>Kisi-Kisi <span>ASAT</span><br>Rangkuman Materi</h1>
+    <p>35 topik lengkap mencakup Bioteknologi, Ekosistem, dan Perubahan Iklim. Klik topik di bawah atau gunakan sidebar untuk navigasi.</p>
+    <div class="topics-grid">
+      <div class="topic-card" onclick="showPageById('p1')"><div class="tc-num">No. 01</div><div class="tc-title">Mikroorganisme Bioteknologi Konvensional</div></div>
+      <div class="topic-card" onclick="showPageById('p2')"><div class="tc-num">No. 02</div><div class="tc-title">Prinsip Dasar Bioteknologi</div></div>
+      <div class="topic-card" onclick="showPageById('p3')"><div class="tc-num">No. 03</div><div class="tc-title">Konvensional vs Modern</div></div>
+      <div class="topic-card" onclick="showPageById('p5')"><div class="tc-num">No. 05</div><div class="tc-title">Tahapan Kultur Jaringan</div></div>
+      <div class="topic-card" onclick="showPageById('p11')"><div class="tc-num">No. 11</div><div class="tc-title">Ciri Ekosistem</div></div>
+      <div class="topic-card" onclick="showPageById('p16')"><div class="tc-num">No. 16</div><div class="tc-title">Daur Nitrogen</div></div>
+      <div class="topic-card" onclick="showPageById('p18')"><div class="tc-num">No. 18</div><div class="tc-title">Rantai Makanan</div></div>
+      <div class="topic-card" onclick="showPageById('p29')"><div class="tc-num">No. 29</div><div class="tc-title">Efek Rumah Kaca</div></div>
+      <div class="topic-card" onclick="showPageById('p32')"><div class="tc-num">No. 32</div><div class="tc-title">Upaya Mitigasi Iklim</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 1 -->
+<div id="page-p1" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 01 · BIOTEKNOLOGI KONVENSIONAL</div>
+    <h2>Mikroorganisme dalam Bioteknologi Konvensional</h2>
+    <p class="tagline">Mikroorganisme yang berperan dalam pembentukan produk bioteknologi konvensional menggunakan proses fermentasi alami.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Tabel Mikroorganisme & Produk</h3>
+    <table>
+      <tr><th>Mikroorganisme</th><th>Jenis</th><th>Produk</th></tr>
+      <tr><td><em>Saccharomyces cerevisiae</em></td><td>Jamur/Ragi</td><td>Roti, bir, tapai, wine</td></tr>
+      <tr><td><em>Lactobacillus bulgaricus</em></td><td>Bakteri</td><td>Yoghurt, keju</td></tr>
+      <tr><td><em>Streptococcus thermophilus</em></td><td>Bakteri</td><td>Yoghurt</td></tr>
+      <tr><td><em>Acetobacter xylinum</em></td><td>Bakteri</td><td>Nata de coco</td></tr>
+      <tr><td><em>Rhizopus oligosporus</em></td><td>Jamur</td><td>Tempe</td></tr>
+      <tr><td><em>Aspergillus oryzae</em></td><td>Jamur</td><td>Kecap, miso, sake</td></tr>
+      <tr><td><em>Aspergillus wentii</em></td><td>Jamur</td><td>Kecap</td></tr>
+      <tr><td><em>Penicillium camemberti</em></td><td>Jamur</td><td>Keju Camembert</td></tr>
+      <tr><td><em>Penicillium roqueforti</em></td><td>Jamur</td><td>Keju Roquefort</td></tr>
+      <tr><td><em>Lactobacillus plantarum</em></td><td>Bakteri</td><td>Acar, kimchi, sauerkraut</td></tr>
+      <tr><td><em>Acetobacter aceti</em></td><td>Bakteri</td><td>Cuka</td></tr>
+      <tr><td><em>Neurospora crassa</em></td><td>Jamur</td><td>Oncom</td></tr>
+    </table>
+  </div>
+
+  <div class="box green">
+    <h3>Ingat Pola Ini!</h3>
+    <ul>
+      <li>Ragi (<em>Saccharomyces</em>) → produk fermentasi alkohol (roti mengembang, tapai, bir)</li>
+      <li>Bakteri asam laktat (<em>Lactobacillus</em>) → produk asam (yoghurt, acar)</li>
+      <li>Jamur (<em>Rhizopus, Aspergillus</em>) → produk kedelai (tempe, kecap)</li>
+      <li><em>Acetobacter</em> → mengoksidasi alkohol menjadi asam asetat (cuka) atau selulosa (nata de coco)</li>
+    </ul>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('home')">← Beranda</button>
+    <button class="btn primary" onclick="showPageById('p2')">Topik 02 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page-p2" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 02 · BIOTEKNOLOGI</div>
+    <h2>Prinsip Dasar Bioteknologi</h2>
+    <p class="tagline">Bioteknologi adalah pemanfaatan organisme hidup (atau bagiannya) untuk menghasilkan barang atau jasa yang bermanfaat bagi manusia.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Definisi & Prinsip Utama</h3>
+    <div class="highlight">Bioteknologi = Bio (makhluk hidup) + Teknologi (penerapan ilmu). Prinsip dasarnya adalah memanfaatkan agen biologi (mikroorganisme, sel, enzim) melalui proses biologi seperti <strong>fermentasi, rekayasa genetika, kultur jaringan, dan kloning</strong> untuk menghasilkan produk yang berguna.</div>
+    <ul style="margin-top:12px">
+      <li><strong>Fermentasi:</strong> Penguraian substrat organik oleh mikroorganisme secara anaerob/aerob untuk menghasilkan produk tertentu</li>
+      <li><strong>Rekayasa Genetika:</strong> Manipulasi materi genetik (DNA) organisme untuk menghasilkan sifat yang diinginkan</li>
+      <li><strong>Kultur Jaringan:</strong> Pertumbuhan sel/jaringan di luar organisme pada media buatan (in vitro)</li>
+      <li><strong>Fusi Sel (Hibridoma):</strong> Penggabungan dua sel berbeda untuk menghasilkan sel dengan sifat keduanya</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="box purple">
+      <h3>Syarat Bioteknologi</h3>
+      <ul>
+        <li>Ada agen biologi (mikroba, sel, enzim)</li>
+        <li>Ada proses biologi/biokimia</li>
+        <li>Ada produk atau jasa yang dihasilkan</li>
+        <li>Dapat diterapkan pada skala industri</li>
+      </ul>
+    </div>
+    <div class="box orange">
+      <h3>Cabang Ilmu Pendukung</h3>
+      <ul>
+        <li>Mikrobiologi</li>
+        <li>Genetika & Biologi Molekuler</li>
+        <li>Biokimia</li>
+        <li>Teknik Kimia (Bioproses)</li>
+        <li>Imunologi</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p1')">← Topik 01</button>
+    <button class="btn primary" onclick="showPageById('p3')">Topik 03 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 3 -->
+<div id="page-p3" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 03 · BIOTEKNOLOGI</div>
+    <h2>Bioteknologi Konvensional vs Modern</h2>
+    <p class="tagline">Perbedaan mendasar antara bioteknologi tradisional dan bioteknologi berbasis rekayasa genetika.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Tabel Perbandingan</h3>
+    <table>
+      <tr><th>Aspek</th><th>Konvensional</th><th>Modern</th></tr>
+      <tr><td>Dasar</td><td>Fermentasi alami</td><td>Rekayasa genetika / DNA Rekombinan</td></tr>
+      <tr><td>Organisme</td><td>Tidak dimodifikasi secara genetik</td><td>Organisme dimodifikasi (GMO)</td></tr>
+      <tr><td>Peralatan</td><td>Sederhana, tradisional</td><td>Canggih (elektroforesis, PCR, dll.)</td></tr>
+      <tr><td>Biaya</td><td>Murah</td><td>Mahal</td></tr>
+      <tr><td>Waktu</td><td>Lebih lama</td><td>Lebih cepat & terprogram</td></tr>
+      <tr><td>Produk</td><td>Tempe, yoghurt, tapai, keju</td><td>Insulin, vaksin, tanaman transgenik</td></tr>
+      <tr><td>Risiko</td><td>Rendah</td><td>Lebih tinggi (perlu regulasi ketat)</td></tr>
+      <tr><td>Tingkat presisi</td><td>Rendah, bergantung kondisi</td><td>Tinggi, terukur dan spesifik</td></tr>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="box">
+      <h3>Contoh Konvensional</h3>
+      <div class="tags">
+        <span class="tag blue">Tempe</span>
+        <span class="tag blue">Tapai</span>
+        <span class="tag blue">Yoghurt</span>
+        <span class="tag blue">Kecap</span>
+        <span class="tag blue">Keju</span>
+        <span class="tag blue">Nata de Coco</span>
+        <span class="tag blue">Oncom</span>
+        <span class="tag blue">Bir</span>
+        <span class="tag blue">Cuka</span>
+      </div>
+    </div>
+    <div class="box green">
+      <h3>Contoh Modern</h3>
+      <div class="tags">
+        <span class="tag green">Insulin Manusia</span>
+        <span class="tag green">Vaksin Hepatitis B</span>
+        <span class="tag green">Bayi Tabung</span>
+        <span class="tag green">Tanaman Bt</span>
+        <span class="tag green">Kloning Hewan</span>
+        <span class="tag green">Antibodi Monoklonal</span>
+        <span class="tag green">Terapi Gen</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p2')">← Topik 02</button>
+    <button class="btn primary" onclick="showPageById('p4')">Topik 04 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 4 -->
+<div id="page-p4" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 04 · BIOTEKNOLOGI</div>
+    <h2>Pemanfaatan Bioteknologi di Bidang Kedokteran</h2>
+    <p class="tagline">Bioteknologi modern telah merevolusi dunia medis melalui produksi obat, vaksin, diagnosis, dan terapi gen.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Produksi Hormon & Protein Terapetik</h3>
+    <ul>
+      <li><strong>Insulin:</strong> Gen insulin manusia disisipkan ke dalam bakteri <em>E. coli</em> → insulin diproduksi massal untuk penderita diabetes</li>
+      <li><strong>Hormon Pertumbuhan (HGH):</strong> Diproduksi menggunakan teknologi DNA rekombinan</li>
+      <li><strong>Eritropoietin (EPO):</strong> Merangsang produksi sel darah merah, untuk pasien gagal ginjal</li>
+      <li><strong>Interferon:</strong> Protein antivirus, diproduksi oleh sel yang terinfeksi, kini diproduksi secara rekayasa genetika</li>
+    </ul>
+  </div>
+
+  <div class="box purple">
+    <h3>Vaksin Bioteknologi</h3>
+    <ul>
+      <li><strong>Vaksin Hepatitis B:</strong> Menggunakan antigen permukaan virus yang diproduksi di ragi (<em>S. cerevisiae</em>)</li>
+      <li><strong>Vaksin mRNA (COVID-19):</strong> Menggunakan mRNA untuk memicu imunitas tanpa virus hidup</li>
+      <li><strong>Vaksin Subunit:</strong> Menggunakan protein spesifik virus/bakteri</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="box orange">
+      <h3>Antibodi Monoklonal</h3>
+      <ul>
+        <li>Untuk diagnosis penyakit (HIV, kanker, kehamilan)</li>
+        <li>Terapi kanker (imunoterapi)</li>
+        <li>Transplantasi organ (mencegah penolakan)</li>
+      </ul>
+    </div>
+    <div class="box green">
+      <h3>Terapi Gen</h3>
+      <ul>
+        <li>Memperbaiki gen yang cacat/bermutasi</li>
+        <li>Contoh: hemofilia, cystic fibrosis</li>
+        <li>Menggunakan vektor (virus/plasmid) untuk membawa gen normal</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box pink">
+    <h3>Teknologi Lainnya</h3>
+    <ul>
+      <li><strong>Bayi Tabung (IVF):</strong> Fertilisasi in vitro — pembuahan sel telur dan sperma di luar tubuh</li>
+      <li><strong>Stem Cell (Sel Punca):</strong> Sel yang dapat berkembang menjadi berbagai jenis sel untuk mengganti jaringan rusak</li>
+      <li><strong>PCR (Polymerase Chain Reaction):</strong> Menggandakan DNA untuk diagnosis penyakit genetik</li>
+      <li><strong>DNA Fingerprinting:</strong> Identifikasi forensik dan diagnosis penyakit genetik</li>
+    </ul>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p3')">← Topik 03</button>
+    <button class="btn primary" onclick="showPageById('p5')">Topik 05 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 5 -->
+<div id="page-p5" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 05 · BIOTEKNOLOGI</div>
+    <h2>Tahapan Kultur Jaringan</h2>
+    <p class="tagline">Teknik perbanyakan tanaman secara in vitro menggunakan sifat totipotensi sel.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="highlight">
+    <strong>Totipotensi:</strong> Kemampuan setiap sel tumbuhan untuk berkembang menjadi individu baru yang lengkap. Inilah dasar kultur jaringan.
+  </div>
+
+  <div class="box" style="margin-top:20px">
+    <h3>Tahapan Kultur Jaringan</h3>
+    <table>
+      <tr><th>Tahap</th><th>Nama</th><th>Keterangan</th></tr>
+      <tr><td>1</td><td><strong>Sterilisasi</strong></td><td>Mensterilkan alat, media, dan eksplan dari kontaminan mikroba</td></tr>
+      <tr><td>2</td><td><strong>Pembuatan Media</strong></td><td>Media berisi hara mineral, vitamin, gula, hormon (auksin & sitokinin), dan agar</td></tr>
+      <tr><td>3</td><td><strong>Pengambilan Eksplan</strong></td><td>Mengambil potongan jaringan (daun, akar, batang, embrio) dari tanaman induk</td></tr>
+      <tr><td>4</td><td><strong>Penanaman/Inokulasi</strong></td><td>Eksplan ditanam di media kultur secara aseptis (bebas kuman)</td></tr>
+      <tr><td>5</td><td><strong>Induksi Kalus</strong></td><td>Eksplan membentuk massa sel tak terdiferensiasi = <strong>kalus</strong></td></tr>
+      <tr><td>6</td><td><strong>Diferensiasi</strong></td><td>Kalus dirangsang hormon untuk membentuk tunas dan akar (organogenesis)</td></tr>
+      <tr><td>7</td><td><strong>Plantlet</strong></td><td>Terbentuk tanaman kecil (plantlet) lengkap dengan akar, batang, daun</td></tr>
+      <tr><td>8</td><td><strong>Aklimatisasi</strong></td><td>Plantlet dipindah ke tanah secara bertahap untuk beradaptasi</td></tr>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="box green">
+      <h3>Keunggulan Kultur Jaringan</h3>
+      <ul>
+        <li>Menghasilkan tanaman dalam jumlah besar dan cepat</li>
+        <li>Tanaman bebas penyakit</li>
+        <li>Sifat identik dengan induk (klonal)</li>
+        <li>Dapat dilakukan sepanjang tahun</li>
+        <li>Melestarikan tanaman langka</li>
+      </ul>
+    </div>
+    <div class="box orange">
+      <h3>Hormon yang Digunakan</h3>
+      <ul>
+        <li><strong>Auksin:</strong> Merangsang pembentukan akar</li>
+        <li><strong>Sitokinin:</strong> Merangsang pembelahan sel dan pembentukan tunas</li>
+        <li>Perbandingan auksin:sitokinin menentukan arah pertumbuhan</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p4')">← Topik 04</button>
+    <button class="btn primary" onclick="showPageById('p6')">Topik 06 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 6 -->
+<div id="page-p6" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 06 · BIOTEKNOLOGI</div>
+    <h2>Proses Kloning</h2>
+    <p class="tagline">Kloning menghasilkan organisme dengan susunan genetik identik melalui transfer inti sel.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Kloning Reproduktif (Somatic Cell Nuclear Transfer – SCNT)</h3>
+    <p style="margin-bottom:12px">Contoh paling terkenal: <strong>Domba Dolly</strong> (1996)</p>
+    <table>
+      <tr><th>Langkah</th><th>Proses</th></tr>
+      <tr><td>1</td><td>Ambil sel somatik (mis. sel ambing/kelenjar susu) dari hewan donor A</td></tr>
+      <tr><td>2</td><td>Ambil sel telur dari hewan betina B, lalu <strong>enukleasi</strong> (hilangkan inti sel telur)</td></tr>
+      <tr><td>3</td><td>Masukkan inti sel somatik donor A ke dalam sel telur yang sudah dienukleasi</td></tr>
+      <tr><td>4</td><td>Stimulasi dengan kejutan listrik/kimia → sel mulai membelah (berkembang menjadi embrio)</td></tr>
+      <tr><td>5</td><td>Embrio ditanamkan ke rahim induk pengganti (surrogate mother)</td></tr>
+      <tr><td>6</td><td>Lahir individu baru yang <strong>identik secara genetik</strong> dengan donor inti sel (A)</td></tr>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="box purple">
+      <h3>Tujuan Kloning</h3>
+      <ul>
+        <li>Memperbanyak hewan ternak unggul</li>
+        <li>Melestarikan hewan yang hampir punah</li>
+        <li>Penelitian biologi perkembangan</li>
+        <li>Produksi obat-obatan (hewan transgenik)</li>
+      </ul>
+    </div>
+    <div class="box pink">
+      <h3>Jenis Kloning</h3>
+      <ul>
+        <li><strong>Kloning Reproduktif:</strong> Menghasilkan individu baru yang identik</li>
+        <li><strong>Kloning Terapeutik:</strong> Menghasilkan sel punca (stem cell) untuk pengobatan, tidak menghasilkan individu baru</li>
+        <li><strong>Kloning Gen:</strong> Memperbanyak gen tertentu menggunakan plasmid bakteri</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box orange">
+    <h3>Kontroversi Kloning</h3>
+    <p>Kloning reproduktif pada manusia dilarang secara etis dan hukum di sebagian besar negara. Kloning terapeutik masih diperdebatkan karena menggunakan embrio manusia sebagai sumber stem cell.</p>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p5')">← Topik 05</button>
+    <button class="btn primary" onclick="showPageById('p7')">Topik 07 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 7 -->
+<div id="page-p7" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 07 · BIOTEKNOLOGI</div>
+    <h2>Tahapan Pembentukan Antibodi Monoklonal</h2>
+    <p class="tagline">Antibodi monoklonal dihasilkan oleh sel hibridoma — hasil fusi sel kanker dan sel B imun.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Tahapan Pembentukan</h3>
+    <table>
+      <tr><th>Langkah</th><th>Proses</th></tr>
+      <tr><td>1</td><td><strong>Imunisasi:</strong> Hewan (biasanya tikus) disuntik antigen tertentu</td></tr>
+      <tr><td>2</td><td><strong>Isolasi Sel B:</strong> Limpa tikus menghasilkan sel B yang membentuk antibodi spesifik terhadap antigen</td></tr>
+      <tr><td>3</td><td><strong>Fusi Sel (Hibridoma):</strong> Sel B digabungkan dengan sel kanker (mieloma) menggunakan PEG (Polyethylene Glycol) → terbentuk <strong>sel hibridoma</strong></td></tr>
+      <tr><td>4</td><td><strong>Seleksi:</strong> Sel hibridoma diseleksi menggunakan media HAT — hanya sel hibridoma yang hidup</td></tr>
+      <tr><td>5</td><td><strong>Skrining:</strong> Diuji untuk memastikan sel hibridoma memproduksi antibodi yang diinginkan</td></tr>
+      <tr><td>6</td><td><strong>Perbanyakan:</strong> Sel hibridoma diperbanyak (kloning) — dapat bertahan dan membelah terus-menerus</td></tr>
+      <tr><td>7</td><td><strong>Produksi Antibodi:</strong> Sel hibridoma menghasilkan antibodi monoklonal dalam jumlah besar</td></tr>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="box green">
+      <h3>Keunggulan Sel Hibridoma</h3>
+      <ul>
+        <li>Kemampuan membuat antibodi → dari sel B imun</li>
+        <li>Kemampuan membelah terus (immortal) → dari sel mieloma</li>
+        <li>Menghasilkan antibodi identik/spesifik dalam jumlah tak terbatas</li>
+      </ul>
+    </div>
+    <div class="box purple">
+      <h3>Kegunaan Antibodi Monoklonal</h3>
+      <ul>
+        <li>Tes kehamilan (mendeteksi hormon hCG)</li>
+        <li>Diagnosis HIV, kanker, hepatitis</li>
+        <li>Terapi kanker (targeted therapy)</li>
+        <li>Penelitian imunologi</li>
+        <li>Pencegahan penolakan transplantasi</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p6')">← Topik 06</button>
+    <button class="btn primary" onclick="showPageById('p8')">Topik 08 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 8 -->
+<div id="page-p8" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 08 · BIOTEKNOLOGI</div>
+    <h2>Dampak Negatif Bioteknologi</h2>
+    <p class="tagline">Di balik manfaatnya, bioteknologi membawa risiko bagi lingkungan, kesehatan, sosial, dan etika.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Dampak terhadap Lingkungan</h3>
+    <ul>
+      <li>GMO dapat mencemari tanaman liar melalui penyerbukan silang (polusi gen)</li>
+      <li>Tanaman transgenik yang tahan hama dapat mengurangi keanekaragaman hayati</li>
+      <li>Hewan hasil kloning yang lepas ke alam dapat mengganggu ekosistem</li>
+      <li>Penggunaan pestisida berkurang, tapi resistensi hama meningkat</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="box pink">
+      <h3>Dampak Kesehatan</h3>
+      <ul>
+        <li>Risiko alergi akibat protein baru pada GMO</li>
+        <li>Resistensi antibiotik (marker gen pada GMO)</li>
+        <li>Efek jangka panjang produk GMO belum sepenuhnya diketahui</li>
+        <li>Penyalahgunaan teknologi (senjata biologis)</li>
+      </ul>
+    </div>
+    <div class="box orange">
+      <h3>Dampak Sosial & Ekonomi</h3>
+      <ul>
+        <li>Monopoli perusahaan besar (paten benih)</li>
+        <li>Petani tradisional tersaingi/terancam</li>
+        <li>Kesenjangan teknologi antara negara maju dan berkembang</li>
+        <li>Bioterorisme menggunakan agen biologi berbahaya</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box purple">
+    <h3>Dampak Etika & Religi</h3>
+    <ul>
+      <li>Kloning manusia dianggap melanggar martabat manusia</li>
+      <li>Manipulasi gen manusia (desainer bayi) menimbulkan perdebatan etis besar</li>
+      <li>Penggunaan embrio manusia dalam penelitian stem cell menuai kontroversi</li>
+      <li>Produk GMO dari hewan/tanaman tertentu bisa bertentangan dengan keyakinan agama</li>
+    </ul>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p7')">← Topik 07</button>
+    <button class="btn primary" onclick="showPageById('p9')">Topik 09 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 9 -->
+<div id="page-p9" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 09 · BIOTEKNOLOGI</div>
+    <h2>Peran Mikroorganisme dalam Proses Pembuatan Produk</h2>
+    <p class="tagline">Mekanisme biologis yang dilakukan mikroorganisme untuk menghasilkan produk bioteknologi konvensional.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Proses Fermentasi Alkohol (Anaerob)</h3>
+    <p>Dilakukan oleh: <em>Saccharomyces cerevisiae</em></p>
+    <div class="cycle">
+      <div class="cycle-step">Glukosa (C₆H₁₂O₆)</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">Piruvat</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">Asetaldehida</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">Etanol + CO₂</div>
+    </div>
+    <p style="margin-top:12px;font-size:.85rem;color:#94a3b8">CO₂ yang dihasilkan menyebabkan roti mengembang. Etanol menjadi kandungan alkohol dalam minuman fermentasi.</p>
+  </div>
+
+  <div class="box green">
+    <h3>Fermentasi Asam Laktat</h3>
+    <p>Dilakukan oleh: <em>Lactobacillus</em> sp.</p>
+    <div class="cycle" style="margin-top:10px">
+      <div class="cycle-step">Glukosa</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">Asam Laktat</div>
+    </div>
+    <p style="margin-top:10px;font-size:.85rem;color:#94a3b8">Asam laktat menurunkan pH → rasa asam pada yoghurt → mengubah tekstur susu menjadi mengental (protein kasein mengendap).</p>
+  </div>
+
+  <div class="box purple">
+    <h3>Peran Rhizopus pada Tempe</h3>
+    <ul>
+      <li>Miselium jamur mengikat biji kedelai menjadi padat</li>
+      <li>Menghasilkan enzim protease → memecah protein kedelai → lebih mudah dicerna</li>
+      <li>Menghasilkan enzim lipase → memecah lemak → aroma khas tempe</li>
+      <li>Meningkatkan kandungan vitamin B12 dan protein tempe</li>
+    </ul>
+  </div>
+
+  <div class="box orange">
+    <h3>Peran Acetobacter pada Nata de Coco</h3>
+    <ul>
+      <li><em>Acetobacter xylinum</em> memfermentasi air kelapa</li>
+      <li>Menghasilkan selulosa ekstraseluler → membentuk lapisan gel putih (nata)</li>
+      <li>Nata de coco = selulosa bakteri yang kaya serat</li>
+    </ul>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p8')">← Topik 08</button>
+    <button class="btn primary" onclick="showPageById('p10')">Topik 10 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 10 -->
+<div id="page-p10" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 10 · BIOTEKNOLOGI</div>
+    <h2>Mikroorganisme & Produk Bioteknologi Konvensional</h2>
+    <p class="tagline">Ringkasan komprehensif mikroorganisme dan produk yang dihasilkannya — fokus hafalan ujian.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Daftar Lengkap untuk Hafalan</h3>
+    <table>
+      <tr><th>Produk</th><th>Mikroorganisme</th><th>Proses</th></tr>
+      <tr><td>Tempe</td><td><em>Rhizopus oligosporus / stolonifer</em></td><td>Fermentasi kedelai</td></tr>
+      <tr><td>Oncom</td><td><em>Neurospora crassa / sitophila</em></td><td>Fermentasi ampas kedelai/kacang</td></tr>
+      <tr><td>Kecap</td><td><em>Aspergillus oryzae / wentii</em></td><td>Fermentasi kedelai hitam</td></tr>
+      <tr><td>Tauco</td><td><em>Aspergillus oryzae</em></td><td>Fermentasi kedelai</td></tr>
+      <tr><td>Yoghurt</td><td><em>Lactobacillus bulgaricus + Streptococcus thermophilus</em></td><td>Fermentasi susu (asam laktat)</td></tr>
+      <tr><td>Keju</td><td><em>Lactobacillus casei / Penicillium</em></td><td>Fermentasi susu + pematangan</td></tr>
+      <tr><td>Mentega</td><td><em>Streptococcus lactis</em></td><td>Fermentasi krim susu</td></tr>
+      <tr><td>Nata de Coco</td><td><em>Acetobacter xylinum</em></td><td>Fermentasi air kelapa</td></tr>
+      <tr><td>Tapai Singkong</td><td><em>Saccharomyces cerevisiae + Aspergillus</em></td><td>Fermentasi pati</td></tr>
+      <tr><td>Roti</td><td><em>Saccharomyces cerevisiae</em></td><td>Fermentasi, CO₂ mengembangkan adonan</td></tr>
+      <tr><td>Cuka</td><td><em>Acetobacter aceti</em></td><td>Oksidasi etanol → asam asetat</td></tr>
+      <tr><td>Bir/Wine</td><td><em>Saccharomyces cerevisiae</em></td><td>Fermentasi alkohol</td></tr>
+      <tr><td>Antibiotik Penisilin</td><td><em>Penicillium notatum</em></td><td>Metabolit sekunder jamur</td></tr>
+      <tr><td>Antibiotik Streptomisin</td><td><em>Streptomyces griseus</em></td><td>Metabolit sekunder bakteri</td></tr>
+      <tr><td>Asam Glutamat (MSG)</td><td><em>Corynebacterium glutamicum</em></td><td>Fermentasi bakteri</td></tr>
+    </table>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p9')">← Topik 09</button>
+    <button class="btn primary" onclick="showPageById('p11')">Topik 11 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 11 -->
+<div id="page-p11" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 11 · EKOSISTEM</div>
+    <h2>Ciri Ekosistem</h2>
+    <p class="tagline">Ekosistem adalah kesatuan antara komunitas makhluk hidup dengan lingkungan abiotiknya yang saling berinteraksi.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="two-col">
+    <div class="box">
+      <h3>Komponen Abiotik</h3>
+      <ul>
+        <li>Cahaya matahari</li>
+        <li>Suhu / temperatur</li>
+        <li>Air dan kelembaban</li>
+        <li>Udara (O₂, CO₂, N₂)</li>
+        <li>Tanah dan mineral</li>
+        <li>Topografi / ketinggian</li>
+        <li>Salinitas (kadar garam)</li>
+        <li>pH lingkungan</li>
+      </ul>
+    </div>
+    <div class="box green">
+      <h3>Komponen Biotik</h3>
+      <ul>
+        <li><strong>Produsen:</strong> Tumbuhan, alga, bakteri fotosintetik</li>
+        <li><strong>Konsumen I:</strong> Herbivora</li>
+        <li><strong>Konsumen II:</strong> Karnivora kecil</li>
+        <li><strong>Konsumen III:</strong> Karnivora besar</li>
+        <li><strong>Dekomposer:</strong> Jamur, bakteri pengurai</li>
+        <li><strong>Detritivor:</strong> Cacing tanah, kaki seribu</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box purple">
+    <h3>Ciri-Ciri Ekosistem</h3>
+    <ul>
+      <li>Terdiri dari komponen biotik dan abiotik yang saling berinteraksi</li>
+      <li>Memiliki aliran energi (dari produsen → konsumen → dekomposer)</li>
+      <li>Terjadi siklus materi (daur biogeokimia)</li>
+      <li>Bersifat dinamis — dapat berubah karena gangguan alam/manusia</li>
+      <li>Memiliki kemampuan regulasi diri (homeostasis ekosistem)</li>
+      <li>Dapat mencapai keseimbangan (klimaks)</li>
+    </ul>
+  </div>
+
+  <div class="three-col">
+    <div class="box orange" style="margin-bottom:0">
+      <h3>Ekosistem Darat</h3>
+      <p style="font-size:.82rem">Hutan, padang rumput, gurun, tundra, taiga</p>
+    </div>
+    <div class="box pink" style="margin-bottom:0">
+      <h3>Ekosistem Air Tawar</h3>
+      <p style="font-size:.82rem">Danau, sungai, rawa, kolam</p>
+    </div>
+    <div class="box" style="margin-bottom:0">
+      <h3>Ekosistem Laut</h3>
+      <p style="font-size:.82rem">Laut dalam, terumbu karang, estuari, pantai</p>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p10')">← Topik 10</button>
+    <button class="btn primary" onclick="showPageById('p12')">Topik 12 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 12 -->
+<div id="page-p12" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 12 · EKOSISTEM</div>
+    <h2>Interaksi Antar Makhluk Hidup</h2>
+    <p class="tagline">Berbagai pola interaksi antarspesies dalam ekosistem — dari mutualisme hingga parasitisme.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Jenis-Jenis Interaksi Antar Spesies</h3>
+    <table>
+      <tr><th>Jenis Interaksi</th><th>Spesies A</th><th>Spesies B</th><th>Contoh</th></tr>
+      <tr><td><strong>Mutualisme</strong></td><td>+</td><td>+</td><td>Lebah & bunga; ikan badut & anemon; bakteri nitrifikasi & tanaman legum</td></tr>
+      <tr><td><strong>Komensalisme</strong></td><td>+</td><td>0</td><td>Ikan remora & hiu; tanaman epifit (anggrek) & pohon inang</td></tr>
+      <tr><td><strong>Amensalisme</strong></td><td>0</td><td>−</td><td>Jamur Penicillium menghambat bakteri; pohon besar menaungi tanaman kecil</td></tr>
+      <tr><td><strong>Predasi</strong></td><td>+</td><td>−</td><td>Elang & tikus; singa & zebra; laba-laba & lalat</td></tr>
+      <tr><td><strong>Parasitisme</strong></td><td>+</td><td>−</td><td>Cacing pita & manusia; benalu & pohon; nyamuk & manusia</td></tr>
+      <tr><td><strong>Kompetisi</strong></td><td>−</td><td>−</td><td>Dua spesies rumput bersaing air; harimau & singa bersaing mangsa</td></tr>
+      <tr><td><strong>Netralisme</strong></td><td>0</td><td>0</td><td>Badak & singa di habitat yang berbeda area</td></tr>
+    </table>
+  </div>
+
+  <div class="highlight">Tanda (+) = diuntungkan, (−) = dirugikan, (0) = tidak terpengaruh</div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p11')">← Topik 11</button>
+    <button class="btn primary" onclick="showPageById('p13')">Topik 13 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 13 -->
+<div id="page-p13" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 13 · EKOSISTEM</div>
+    <h2>Interaksi Antar Makhluk Hidup (Lanjutan)</h2>
+    <p class="tagline">Contoh-contoh spesifik interaksi intraspesifik dan strategi bertahan hidup organisme.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Interaksi Intraspesifik (Sesama Spesies)</h3>
+    <ul>
+      <li><strong>Koloni:</strong> Individu sejenis hidup bersama dan saling bergantung (lebah madu, semut)</li>
+      <li><strong>Hierarki Sosial:</strong> Peringkat dalam kelompok (wolfpack — serigala alfa)</li>
+      <li><strong>Teritorialisme:</strong> Mempertahankan wilayah dari individu sejenis (burung penyanyi)</li>
+      <li><strong>Kanibalisme:</strong> Memangsa individu sejenis (laba-laba betina memakan jantan setelah kawin)</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="box green">
+      <h3>Simbiosis Mutualisme</h3>
+      <ul>
+        <li>Bakteri <em>Rhizobium</em> di akar polong-polongan (fiksasi N)</li>
+        <li>Mikoriza (jamur + akar tumbuhan)</li>
+        <li>Lichenes (lumut kerak = alga + jamur)</li>
+        <li>Protozoa di usus rayap (mencerna selulosa)</li>
+      </ul>
+    </div>
+    <div class="box orange">
+      <h3>Ektoparasit & Endoparasit</h3>
+      <ul>
+        <li><strong>Ektoparasit:</strong> Hidup di luar inang (kutu, nyamuk, kutu daun)</li>
+        <li><strong>Endoparasit:</strong> Hidup di dalam inang (cacing gelang, cacing pita, plasmodium malaria)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box purple">
+    <h3>Contoh Simbiosis Penting untuk Ujian</h3>
+    <table>
+      <tr><th>Simbiosis</th><th>Organisme 1</th><th>Organisme 2</th><th>Keterangan</th></tr>
+      <tr><td>Mutualisme</td><td>Ikan badut</td><td>Anemon laut</td><td>Ikan terlindungi, anemon mendapat makanan</td></tr>
+      <tr><td>Mutualisme</td><td>Lebah</td><td>Bunga</td><td>Lebah dapat nektar, bunga terserbuki</td></tr>
+      <tr><td>Komensalisme</td><td>Anggrek</td><td>Pohon inang</td><td>Anggrek mendapat cahaya, pohon tidak terpengaruh</td></tr>
+      <tr><td>Parasitisme</td><td>Benalu (<em>Loranthus</em>)</td><td>Pohon inang</td><td>Benalu mengambil air & mineral dari pohon</td></tr>
+      <tr><td>Predasi</td><td>Elang</td><td>Ayam/tikus</td><td>Predator mendapat mangsa</td></tr>
+    </table>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p12')">← Topik 12</button>
+    <button class="btn primary" onclick="showPageById('p14')">Topik 14 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 14 -->
+<div id="page-p14" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 14 · EKOSISTEM</div>
+    <h2>Daur Fosfor</h2>
+    <p class="tagline">Siklus fosfor adalah daur biogeokimia sedimentasi — tidak melalui fase gas, bergerak lambat melalui batuan dan tanah.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Proses Daur Fosfor</h3>
+    <div class="cycle">
+      <div class="cycle-step">Batuan Fosfat<br><small>(pelapukan)</small></div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">Ion Fosfat<br>di Tanah/Air (PO₄³⁻)</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">Diserap<br>Tumbuhan</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">Konsumen<br>(hewan/manusia)</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">Dekomposer<br>(penguraian)</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">Ion Fosfat<br>kembali ke tanah</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="box green">
+      <h3>Fungsi Fosfor bagi Makhluk Hidup</h3>
+      <ul>
+        <li>Penyusun ATP (sumber energi sel)</li>
+        <li>Penyusun DNA & RNA (tulang punggung fosfat)</li>
+        <li>Penyusun membran sel (fosfolipid)</li>
+        <li>Penyusun tulang dan gigi (kalsium fosfat)</li>
+      </ul>
+    </div>
+    <div class="box orange">
+      <h3>Ciri Khusus Daur Fosfor</h3>
+      <ul>
+        <li>Tidak ada fase gas (berbeda dengan C, N, S)</li>
+        <li>Bergerak lambat: sumber utama = pelapukan batuan</li>
+        <li>Dapat hilang ke sedimen laut (jangka sangat panjang)</li>
+        <li>Limbah pertanian (pupuk fosfat) dapat menyebabkan eutrofikasi</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p13')">← Topik 13</button>
+    <button class="btn primary" onclick="showPageById('p15')">Topik 15 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 15 -->
+<div id="page-p15" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 15 · EKOSISTEM</div>
+    <h2>Jenis Organisme Perairan</h2>
+    <p class="tagline">Klasifikasi organisme di ekosistem air berdasarkan cara hidup dan kemampuan bergeraknya.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Klasifikasi Berdasarkan Cara Hidup</h3>
+    <table>
+      <tr><th>Kelompok</th><th>Definisi</th><th>Contoh</th></tr>
+      <tr><td><strong>Plankton</strong></td><td>Organisme kecil yang melayang, pergerakan dipengaruhi arus air</td><td>Fitoplankton (alga mikro), zooplankton (protozoa, larva udang)</td></tr>
+      <tr><td><strong>Nekton</strong></td><td>Organisme yang aktif berenang/bergerak bebas</td><td>Ikan, cumi-cumi, paus, lumba-lumba, kura-kura laut</td></tr>
+      <tr><td><strong>Bentos</strong></td><td>Organisme yang hidup di dasar perairan</td><td>Cacing laut, bintang laut, kerang, lobster, teripang</td></tr>
+      <tr><td><strong>Neuston</strong></td><td>Organisme yang hidup di permukaan air</td><td>Serangga air (<em>Gerris</em>), beberapa protozoa</td></tr>
+      <tr><td><strong>Perifiton</strong></td><td>Organisme yang melekat pada substrat (batu, tumbuhan)</td><td>Alga yang menempel batu, diatom</td></tr>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="box purple">
+      <h3>Fitoplankton</h3>
+      <ul>
+        <li>Produsen utama ekosistem laut</li>
+        <li>Melakukan fotosintesis</li>
+        <li>Contoh: Diatom (<em>Bacillariophyta</em>), Dinoflagelata, Cyanobacteria</li>
+        <li>Menghasilkan ~50% oksigen bumi</li>
+      </ul>
+    </div>
+    <div class="box green">
+      <h3>Zooplankton</h3>
+      <ul>
+        <li>Konsumen primer di ekosistem perairan</li>
+        <li>Memakan fitoplankton</li>
+        <li>Contoh: Copepoda, Krill, larva ikan, Foraminifera</li>
+        <li>Makanan utama ikan kecil dan paus balen</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p14')">← Topik 14</button>
+    <button class="btn primary" onclick="showPageById('p16')">Topik 16 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 16 -->
+<div id="page-p16" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 16 · EKOSISTEM</div>
+    <h2>Daur Nitrogen</h2>
+    <p class="tagline">Nitrogen (N₂) harus diubah menjadi bentuk yang dapat diserap tumbuhan melalui serangkaian proses biologis.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Tahapan Daur Nitrogen</h3>
+    <table>
+      <tr><th>Proses</th><th>Perubahan</th><th>Pelaku</th></tr>
+      <tr><td><strong>Fiksasi N₂</strong></td><td>N₂ (udara) → NH₃/NH₄⁺</td><td><em>Rhizobium</em>, <em>Azotobacter</em>, <em>Anabaena</em>, petir</td></tr>
+      <tr><td><strong>Amonifikasi</strong></td><td>Protein organik → NH₄⁺ (amonia)</td><td>Bakteri pengurai, jamur</td></tr>
+      <tr><td><strong>Nitrifikasi</strong></td><td>NH₄⁺ → NO₂⁻ → NO₃⁻</td><td><em>Nitrosomonas</em> (NH₄⁺→NO₂⁻), <em>Nitrobacter</em> (NO₂⁻→NO₃⁻)</td></tr>
+      <tr><td><strong>Asimilasi</strong></td><td>NO₃⁻ diserap tumbuhan → protein</td><td>Tumbuhan</td></tr>
+      <tr><td><strong>Denitrifikasi</strong></td><td>NO₃⁻ → N₂ (kembali ke udara)</td><td><em>Pseudomonas denitrificans</em>, <em>Thiobacillus denitrificans</em></td></tr>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="box green">
+      <h3>Pentingnya Nitrogen</h3>
+      <ul>
+        <li>Penyusun protein dan asam amino</li>
+        <li>Penyusun asam nukleat (DNA, RNA)</li>
+        <li>Penyusun klorofil</li>
+        <li>Penyusun ATP</li>
+      </ul>
+    </div>
+    <div class="box orange">
+      <h3>Fiksasi Nitrogen Biologis</h3>
+      <ul>
+        <li><em>Rhizobium leguminosarum</em> → simbiosis dengan kacang-kacangan (bintil akar)</li>
+        <li><em>Azotobacter</em> → hidup bebas di tanah</li>
+        <li><em>Anabaena</em> → cyanobacteria, simbiosis dengan paku air (<em>Azolla</em>)</li>
+        <li><em>Nostoc</em> → cyanobacteria hidup bebas</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p15')">← Topik 15</button>
+    <button class="btn primary" onclick="showPageById('p17')">Topik 17 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 17 -->
+<div id="page-p17" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 17 · EKOSISTEM</div>
+    <h2>Piramida Energi</h2>
+    <p class="tagline">Piramida energi menggambarkan aliran dan jumlah energi di setiap tingkat trofik dalam ekosistem.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Konsep Dasar</h3>
+    <ul>
+      <li>Energi mengalir searah dari produsen → konsumen → dekomposer</li>
+      <li>Setiap perpindahan tingkat trofik, energi yang tersedia berkurang ~90%</li>
+      <li>Hanya sekitar <strong>10%</strong> energi yang berpindah ke tingkat trofik berikutnya (Hukum 10%)</li>
+      <li>Sisa 90% hilang sebagai panas, ekskresi, dan metabolisme</li>
+    </ul>
+  </div>
+
+  <div class="box purple">
+    <h3>Jenis-Jenis Piramida Ekologi</h3>
+    <table>
+      <tr><th>Jenis</th><th>Menggambarkan</th><th>Selalu Tegak?</th></tr>
+      <tr><td><strong>Piramida Energi</strong></td><td>Jumlah energi per satuan waktu per luas area</td><td>✓ Selalu tegak (paling akurat)</td></tr>
+      <tr><td><strong>Piramida Biomassa</strong></td><td>Massa total organisme hidup per tingkat trofik</td><td>Bisa terbalik (mis. ekosistem laut)</td></tr>
+      <tr><td><strong>Piramida Jumlah</strong></td><td>Jumlah individu per tingkat trofik</td><td>Bisa terbalik (pohon besar → banyak serangga)</td></tr>
+    </table>
+  </div>
+
+  <div class="box orange">
+    <h3>Contoh Perhitungan (Hukum 10%)</h3>
+    <ul>
+      <li>Produsen: 10.000 kkal</li>
+      <li>Konsumen I (Herbivora): 1.000 kkal (10%)</li>
+      <li>Konsumen II (Karnivora): 100 kkal (10%)</li>
+      <li>Konsumen III (Karnivora puncak): 10 kkal (10%)</li>
+    </ul>
+    <p style="margin-top:10px;font-size:.83rem;color:#94a3b8">Maka: untuk menghasilkan 10 kkal di konsumen III, dibutuhkan 10.000 kkal dari produsen!</p>
+  </div>
+
+  <div class="box green">
+    <h3>Mengapa Piramida Energi Selalu Tegak?</h3>
+    <p>Karena energi tidak dapat diciptakan atau didaur ulang — ia mengalir satu arah dan selalu berkurang. Berbeda dengan materi yang dapat didaur ulang.</p>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p16')">← Topik 16</button>
+    <button class="btn primary" onclick="showPageById('p18')">Topik 18 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 18 -->
+<div id="page-p18" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 18 · EKOSISTEM</div>
+    <h2>Rantai Makanan</h2>
+    <p class="tagline">Urutan linier perpindahan energi dari satu organisme ke organisme berikutnya dalam ekosistem.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Definisi & Jenis Rantai Makanan</h3>
+    <p style="margin-bottom:14px">Rantai makanan adalah urutan siapa memakan siapa dalam ekosistem. Setiap organisme disebut berada pada tingkat trofik tertentu.</p>
+    <table>
+      <tr><th>Jenis</th><th>Dimulai dari</th><th>Contoh</th></tr>
+      <tr><td><strong>Rantai Perumput (Grazing)</strong></td><td>Tumbuhan hidup</td><td>Rumput → Belalang → Katak → Ular → Elang</td></tr>
+      <tr><td><strong>Rantai Detritus</strong></td><td>Bahan organik mati (detritus)</td><td>Daun gugur → Cacing tanah → Ayam → Elang</td></tr>
+      <tr><td><strong>Rantai Parasit</strong></td><td>Inang</td><td>Pohon → Ulat parasit → Bakteri parasit</td></tr>
+    </table>
+  </div>
+
+  <div class="box green">
+    <h3>Contoh Rantai Makanan di Berbagai Ekosistem</h3>
+    <ul>
+      <li><strong>Sawah:</strong> Padi → Tikus → Ular → Elang</li>
+      <li><strong>Laut:</strong> Fitoplankton → Zooplankton → Ikan kecil → Ikan besar → Hiu</li>
+      <li><strong>Hutan:</strong> Daun → Ulat → Burung kecil → Elang</li>
+      <li><strong>Air tawar:</strong> Ganggang → Ikan kecil → Ikan besar → Manusia</li>
+    </ul>
+  </div>
+
+  <div class="box purple">
+    <h3>Tingkat Trofik</h3>
+    <table>
+      <tr><th>Tingkat Trofik</th><th>Organisme</th><th>Sumber Energi</th></tr>
+      <tr><td>T1 (Produsen)</td><td>Tumbuhan, alga, bakteri fotosintetik</td><td>Matahari (fotosintesis)</td></tr>
+      <tr><td>T2 (Konsumen I)</td><td>Herbivora</td><td>Memakan produsen</td></tr>
+      <tr><td>T3 (Konsumen II)</td><td>Karnivora kecil</td><td>Memakan herbivora</td></tr>
+      <tr><td>T4 (Konsumen III)</td><td>Karnivora besar/puncak</td><td>Memakan karnivora lain</td></tr>
+      <tr><td>Dekomposer</td><td>Bakteri, jamur pengurai</td><td>Organisme mati di semua tingkat</td></tr>
+    </table>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p17')">← Topik 17</button>
+    <button class="btn primary" onclick="showPageById('p19')">Topik 19 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 19 -->
+<div id="page-p19" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 19 · EKOSISTEM</div>
+    <h2>Nitrifikasi</h2>
+    <p class="tagline">Proses oksidasi amonia menjadi nitrit kemudian nitrat oleh bakteri kemoautotrof — bagian dari daur nitrogen.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Tahapan Nitrifikasi</h3>
+    <div class="cycle">
+      <div class="cycle-step">NH₄⁺<br>(Amonia)</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">NO₂⁻<br>(Nitrit)<br><small>Nitrosomonas</small></div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">NO₃⁻<br>(Nitrat)<br><small>Nitrobacter</small></div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="box green">
+      <h3>Bakteri Nitrifikasi</h3>
+      <ul>
+        <li><strong><em>Nitrosomonas</em>:</strong> NH₄⁺ → NO₂⁻ (nitroso = nitrit)</li>
+        <li><strong><em>Nitrobacter</em>:</strong> NO₂⁻ → NO₃⁻ (nitro = nitrat)</li>
+        <li>Bersifat <strong>kemoautotrof</strong> — mengambil energi dari oksidasi kimia, bukan cahaya</li>
+        <li>Hidup aerob (butuh oksigen)</li>
+      </ul>
+    </div>
+    <div class="box purple">
+      <h3>Pentingnya Nitrifikasi</h3>
+      <ul>
+        <li>Mengubah amonia (beracun bagi tanaman) menjadi nitrat (dapat diserap akar)</li>
+        <li>Meningkatkan kesuburan tanah</li>
+        <li>Pupuk kandang perlu melalui proses nitrifikasi sebelum dapat digunakan tanaman</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box orange">
+    <h3>Perbandingan Nitrifikasi vs Denitrifikasi</h3>
+    <table>
+      <tr><th>Aspek</th><th>Nitrifikasi</th><th>Denitrifikasi</th></tr>
+      <tr><td>Arah</td><td>NH₄⁺ → NO₃⁻</td><td>NO₃⁻ → N₂</td></tr>
+      <tr><td>Kondisi</td><td>Aerob</td><td>Anaerob</td></tr>
+      <tr><td>Bakteri</td><td><em>Nitrosomonas, Nitrobacter</em></td><td><em>Pseudomonas, Thiobacillus</em></td></tr>
+      <tr><td>Dampak</td><td>Menambah N tersedia di tanah</td><td>Mengurangi N dari tanah, kembalikan ke atmosfer</td></tr>
+    </table>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p18')">← Topik 18</button>
+    <button class="btn primary" onclick="showPageById('p20')">Topik 20 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 20 -->
+<div id="page-p20" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 20 · EKOSISTEM</div>
+    <h2>Siklus Air (Daur Hidrologi)</h2>
+    <p class="tagline">Perputaran air di alam melalui evaporasi, kondensasi, presipitasi, dan infiltrasi secara berkelanjutan.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Tahapan Siklus Air</h3>
+    <table>
+      <tr><th>Proses</th><th>Definisi</th></tr>
+      <tr><td><strong>Evaporasi</strong></td><td>Penguapan air dari permukaan laut, danau, sungai akibat panas matahari</td></tr>
+      <tr><td><strong>Transpirasi</strong></td><td>Penguapan air dari stomata daun tumbuhan</td></tr>
+      <tr><td><strong>Evapotranspirasi</strong></td><td>Gabungan evaporasi + transpirasi</td></tr>
+      <tr><td><strong>Kondensasi</strong></td><td>Uap air mendingin di atmosfer → membentuk awan/tetes air</td></tr>
+      <tr><td><strong>Presipitasi</strong></td><td>Jatuhnya air dari atmosfer ke bumi: hujan, salju, embun, hujan es</td></tr>
+      <tr><td><strong>Infiltrasi</strong></td><td>Air meresap ke dalam tanah → menjadi air tanah</td></tr>
+      <tr><td><strong>Run-off (Aliran Permukaan)</strong></td><td>Air yang mengalir di permukaan tanah menuju sungai/laut</td></tr>
+      <tr><td><strong>Perkolasi</strong></td><td>Air bergerak ke bawah melalui tanah dan batuan porous → akuifer</td></tr>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="box green">
+      <h3>Fungsi Siklus Air</h3>
+      <ul>
+        <li>Mendistribusikan air tawar ke seluruh permukaan bumi</li>
+        <li>Membersihkan air secara alami (purifikasi)</li>
+        <li>Mengatur suhu bumi</li>
+        <li>Menopang kehidupan seluruh makhluk hidup</li>
+      </ul>
+    </div>
+    <div class="box orange">
+      <h3>Gangguan Siklus Air</h3>
+      <ul>
+        <li>Deforestasi → mengurangi transpirasi & infiltrasi</li>
+        <li>Urbanisasi → permukaan tertutup beton → sedikit infiltrasi → banjir</li>
+        <li>Pemanasan global → mempercepat evaporasi → iklim ekstrem</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p19')">← Topik 19</button>
+    <button class="btn primary" onclick="showPageById('p21')">Topik 21 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 21 -->
+<div id="page-p21" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 21 · EKOSISTEM</div>
+    <h2>Zona Ekosistem Air Laut</h2>
+    <p class="tagline">Pembagian zona ekosistem laut berdasarkan kedalaman, penetrasi cahaya, dan jarak dari pantai.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Zona Berdasarkan Kedalaman (Vertikal)</h3>
+    <table>
+      <tr><th>Zona</th><th>Kedalaman</th><th>Karakteristik</th><th>Organisme</th></tr>
+      <tr><td><strong>Epipelagik</strong></td><td>0–200 m</td><td>Cahaya cukup, fotosintesis aktif</td><td>Plankton, ikan, lumba-lumba</td></tr>
+      <tr><td><strong>Mesopelagik</strong></td><td>200–1.000 m</td><td>Cahaya redup/remang (twilight zone)</td><td>Ikan laut dalam bioluminesensi</td></tr>
+      <tr><td><strong>Batipelagik</strong></td><td>1.000–4.000 m</td><td>Gelap total, tekanan tinggi</td><td>Gurita, angler fish</td></tr>
+      <tr><td><strong>Abisopelagik</strong></td><td>4.000–6.000 m</td><td>Sangat gelap, sangat dingin</td><td>Cacing laut, krustasea</td></tr>
+      <tr><td><strong>Hadopelagik</strong></td><td>> 6.000 m</td><td>Palung laut, tekanan ekstrem</td><td>Spesies khusus tekanan tinggi</td></tr>
+    </table>
+  </div>
+
+  <div class="box green">
+    <h3>Zona Berdasarkan Jarak dari Pantai (Horizontal)</h3>
+    <table>
+      <tr><th>Zona</th><th>Lokasi</th><th>Ciri</th></tr>
+      <tr><td><strong>Litoral / Intertidal</strong></td><td>Garis pantai (pasang surut)</td><td>Terkena udara saat surut; organisme tahan kekeringan (kepiting, kerang, bintang laut)</td></tr>
+      <tr><td><strong>Neritik</strong></td><td>Perairan dangkal (0–200 m, di atas paparan benua)</td><td>Cahaya melimpah, produktivitas tinggi, terumbu karang</td></tr>
+      <tr><td><strong>Oseanik</strong></td><td>Laut terbuka (> 200 m)</td><td>Laut dalam, biodiversitas rendah di zona dalam</td></tr>
+    </table>
+  </div>
+
+  <div class="box purple">
+    <h3>Ekosistem Laut Khusus</h3>
+    <ul>
+      <li><strong>Terumbu Karang:</strong> Ekosistem paling produktif dan beragam di laut (hutan hujan laut)</li>
+      <li><strong>Estuari:</strong> Pertemuan sungai dan laut, kadar garam bervariasi, sangat produktif</li>
+      <li><strong>Zona Afotik:</strong> Zona tanpa cahaya matahari (kedalaman > 200 m)</li>
+      <li><strong>Zona Fotik:</strong> Zona yang masih dapat ditembus cahaya (0–200 m)</li>
+    </ul>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p20')">← Topik 20</button>
+    <button class="btn primary" onclick="showPageById('p22')">Topik 22 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 22 -->
+<div id="page-p22" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 22 · EKOSISTEM</div>
+    <h2>Daur Sulfur</h2>
+    <p class="tagline">Siklus sulfur melibatkan konversi sulfur antara bentuk organik dan anorganik melalui peran bakteri khusus.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Proses Daur Sulfur</h3>
+    <table>
+      <tr><th>Proses</th><th>Perubahan</th><th>Pelaku</th></tr>
+      <tr><td><strong>Desulfurisasi</strong></td><td>Protein organik (mengandung S) → H₂S</td><td>Bakteri pengurai, jamur</td></tr>
+      <tr><td><strong>Oksidasi H₂S</strong></td><td>H₂S → S⁰ → SO₄²⁻</td><td><em>Thiobacillus</em>, <em>Beggiatoa</em></td></tr>
+      <tr><td><strong>Asimilasi Tumbuhan</strong></td><td>SO₄²⁻ diserap akar → masuk ke protein</td><td>Tumbuhan</td></tr>
+      <tr><td><strong>Reduksi Sulfat</strong></td><td>SO₄²⁻ → H₂S (kondisi anaerob)</td><td><em>Desulfovibrio</em></td></tr>
+      <tr><td><strong>Pembakaran Fosil</strong></td><td>S organik → SO₂ (ke atmosfer)</td><td>Manusia (industri, kendaraan)</td></tr>
+      <tr><td><strong>Hujan Asam</strong></td><td>SO₂ + H₂O → H₂SO₄</td><td>Reaksi kimia atmosfer</td></tr>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="box orange">
+      <h3>Sumber Sulfur</h3>
+      <ul>
+        <li>Aktivitas vulkanik (H₂S, SO₂)</li>
+        <li>Pembakaran bahan bakar fosil (SO₂)</li>
+        <li>Penguraian protein organik</li>
+        <li>Mineral sulfat di tanah dan sedimen</li>
+        <li>Air laut (mengandung SO₄²⁻)</li>
+      </ul>
+    </div>
+    <div class="box pink">
+      <h3>Dampak Gangguan Daur Sulfur</h3>
+      <ul>
+        <li>SO₂ dari industri → hujan asam</li>
+        <li>Hujan asam merusak ekosistem danau & hutan</li>
+        <li>Korosi bangunan dan monumen</li>
+        <li>H₂S dari rawa anaerob → bau busuk</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p21')">← Topik 21</button>
+    <button class="btn primary" onclick="showPageById('p23')">Topik 23 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 23 -->
+<div id="page-p23" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 23 · EKOSISTEM</div>
+    <h2>Komponen Biotik Ekosistem</h2>
+    <p class="tagline">Semua makhluk hidup dalam ekosistem dikelompokkan berdasarkan peran fungsional mereka.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Klasifikasi Komponen Biotik</h3>
+    <table>
+      <tr><th>Komponen</th><th>Definisi</th><th>Contoh</th></tr>
+      <tr><td><strong>Produsen (Autotrof)</strong></td><td>Menghasilkan makanan sendiri melalui fotosintesis/kemosintesis</td><td>Tumbuhan hijau, alga, fitoplankton, cyanobacteria</td></tr>
+      <tr><td><strong>Konsumen I (Herbivora)</strong></td><td>Memakan produsen langsung</td><td>Sapi, kijang, ulat, belalang, zooplankton</td></tr>
+      <tr><td><strong>Konsumen II (Karnivora)</strong></td><td>Memakan herbivora</td><td>Katak, ular kecil, rubah, ikan predator kecil</td></tr>
+      <tr><td><strong>Konsumen III (Predator Puncak)</strong></td><td>Memakan karnivora lain, tidak ada pemangsa alami</td><td>Elang, singa, hiu putih, paus orca</td></tr>
+      <tr><td><strong>Omnivora</strong></td><td>Memakan tumbuhan dan hewan</td><td>Manusia, beruang, babi, ayam</td></tr>
+      <tr><td><strong>Dekomposer (Saprofit)</strong></td><td>Menguraikan bahan organik mati menjadi anorganik</td><td>Bakteri pengurai, jamur (<em>Aspergillus, Mucor</em>)</td></tr>
+      <tr><td><strong>Detritivor</strong></td><td>Memakan detritus (serpihan organik mati)</td><td>Cacing tanah, kaki seribu, kumbang kotoran, siput</td></tr>
+    </table>
+  </div>
+
+  <div class="highlight">Perbedaan Dekomposer vs Detritivor: Dekomposer <strong>mengurai</strong> secara kimiawi (enzim ekstraseluler), Detritivor <strong>mencerna</strong> fisik bahan organik mati.</div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p22')">← Topik 22</button>
+    <button class="btn primary" onclick="showPageById('p24')">Topik 24 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 24 -->
+<div id="page-p24" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 24 · EKOSISTEM</div>
+    <h2>Hierarki Organisasi Makhluk Hidup</h2>
+    <p class="tagline">Tingkatan organisasi kehidupan dari yang paling sederhana (sel) hingga paling kompleks (biosfer).</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Tingkatan Organisasi (dari kecil ke besar)</h3>
+    <table>
+      <tr><th>Tingkatan</th><th>Definisi</th><th>Contoh</th></tr>
+      <tr><td><strong>1. Sel</strong></td><td>Unit terkecil kehidupan</td><td>Sel darah merah, sel epitel, neuron</td></tr>
+      <tr><td><strong>2. Jaringan</strong></td><td>Kumpulan sel sejenis dengan fungsi sama</td><td>Jaringan otot, jaringan tulang, jaringan daun</td></tr>
+      <tr><td><strong>3. Organ</strong></td><td>Kumpulan jaringan berbeda yang bekerja sama</td><td>Jantung, paru-paru, ginjal, daun, akar</td></tr>
+      <tr><td><strong>4. Sistem Organ</strong></td><td>Kumpulan organ yang bekerja sama untuk fungsi tertentu</td><td>Sistem pencernaan, sistem peredaran darah</td></tr>
+      <tr><td><strong>5. Organisme/Individu</strong></td><td>Makhluk hidup tunggal yang lengkap</td><td>Seekor harimau, sebatang pohon</td></tr>
+      <tr><td><strong>6. Populasi</strong></td><td>Kelompok individu satu spesies di area tertentu</td><td>Populasi gajah di Taman Nasional</td></tr>
+      <tr><td><strong>7. Komunitas</strong></td><td>Kumpulan semua populasi di suatu area</td><td>Semua makhluk hidup di hutan hujan</td></tr>
+      <tr><td><strong>8. Ekosistem</strong></td><td>Komunitas + lingkungan abiotiknya</td><td>Hutan hujan tropis, terumbu karang</td></tr>
+      <tr><td><strong>9. Bioma</strong></td><td>Ekosistem besar dengan iklim & vegetasi khas</td><td>Hutan hujan, gurun, tundra, taiga</td></tr>
+      <tr><td><strong>10. Biosfer</strong></td><td>Seluruh zona kehidupan di bumi</td><td>Seluruh permukaan, laut, dan atmosfer bumi</td></tr>
+    </table>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p23')">← Topik 23</button>
+    <button class="btn primary" onclick="showPageById('p25')">Topik 25 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 25 -->
+<div id="page-p25" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 25 · EKOSISTEM</div>
+    <h2>Jaring Makanan</h2>
+    <p class="tagline">Jaring makanan adalah sekumpulan rantai makanan yang saling berhubungan dan bersilangan dalam suatu ekosistem.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Perbedaan Rantai Makanan vs Jaring Makanan</h3>
+    <table>
+      <tr><th>Aspek</th><th>Rantai Makanan</th><th>Jaring Makanan</th></tr>
+      <tr><td>Bentuk</td><td>Linear/lurus</td><td>Kompleks, bercabang</td></tr>
+      <tr><td>Hubungan</td><td>1 organisme → 1 organisme</td><td>1 organisme → banyak organisme</td></tr>
+      <tr><td>Kestabilan</td><td>Kurang stabil</td><td>Lebih stabil (ada alternatif mangsa)</td></tr>
+      <tr><td>Kenyataan</td><td>Penyederhanaan</td><td>Lebih mendekati kondisi nyata</td></tr>
+    </table>
+  </div>
+
+  <div class="box green">
+    <h3>Contoh Jaring Makanan Ekosistem Sawah</h3>
+    <ul>
+      <li>Padi → Belalang → Katak → Ular → Elang</li>
+      <li>Padi → Tikus → Ular → Elang</li>
+      <li>Padi → Tikus → Elang (langsung)</li>
+      <li>Padi → Ulat → Burung pipit → Elang</li>
+      <li>Belalang → Burung pipit → Elang</li>
+    </ul>
+    <p style="margin-top:10px;font-size:.83rem;color:#94a3b8">Dari jaring makanan di atas, Elang adalah <strong>predator puncak</strong> (apex predator) — tidak dimangsa organisme lain.</p>
+  </div>
+
+  <div class="box purple">
+    <h3>Dampak Hilangnya Satu Spesies dalam Jaring Makanan</h3>
+    <ul>
+      <li>Jika satu spesies hilang → populasi mangsanya melonjak, populasi pemangsanya menurun</li>
+      <li>Contoh: hilangnya ular di sawah → populasi tikus meledak → hama padi meningkat</li>
+      <li>Semakin kompleks jaring makanan, semakin stabil ekosistem</li>
+      <li>Ekosistem dengan biodiversitas rendah lebih rentan terhadap gangguan</li>
+    </ul>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p24')">← Topik 24</button>
+    <button class="btn primary" onclick="showPageById('p26')">Topik 26 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 26 -->
+<div id="page-p26" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 26 · PERUBAHAN IKLIM</div>
+    <h2>Perbedaan Iklim dan Cuaca</h2>
+    <p class="tagline">Cuaca adalah kondisi atmosfer jangka pendek, sedangkan iklim adalah pola cuaca jangka panjang suatu wilayah.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Tabel Perbandingan</h3>
+    <table>
+      <tr><th>Aspek</th><th>Cuaca (Weather)</th><th>Iklim (Climate)</th></tr>
+      <tr><td>Waktu</td><td>Jangka pendek (jam–hari)</td><td>Jangka panjang (30+ tahun)</td></tr>
+      <tr><td>Wilayah</td><td>Lokal/spesifik</td><td>Regional/global</td></tr>
+      <tr><td>Perubahan</td><td>Cepat berubah</td><td>Berubah perlahan</td></tr>
+      <tr><td>Prediksi</td><td>Prakiraan cuaca (akurat beberapa hari)</td><td>Proyeksi iklim (tren puluhan tahun)</td></tr>
+      <tr><td>Contoh</td><td>"Hari ini hujan lebat di Jakarta"</td><td>"Indonesia memiliki iklim tropis basah"</td></tr>
+      <tr><td>Ilmu</td><td>Meteorologi</td><td>Klimatologi</td></tr>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="box green">
+      <h3>Unsur Cuaca & Iklim</h3>
+      <ul>
+        <li>Suhu udara</li>
+        <li>Kelembaban udara</li>
+        <li>Curah hujan / presipitasi</li>
+        <li>Tekanan udara</li>
+        <li>Kecepatan dan arah angin</li>
+        <li>Tutupan awan</li>
+        <li>Radiasi matahari</li>
+      </ul>
+    </div>
+    <div class="box purple">
+      <h3>Klasifikasi Iklim</h3>
+      <ul>
+        <li><strong>Tropis:</strong> Dekat khatulistiwa, panas & lembab sepanjang tahun</li>
+        <li><strong>Subtropis:</strong> Musim panas panas, musim dingin sejuk</li>
+        <li><strong>Sedang:</strong> 4 musim, suhu bervariasi</li>
+        <li><strong>Kutub:</strong> Sangat dingin, es sepanjang tahun</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p25')">← Topik 25</button>
+    <button class="btn primary" onclick="showPageById('p27')">Topik 27 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 27 -->
+<div id="page-p27" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 27 · PERUBAHAN IKLIM</div>
+    <h2>Dampak Pemanasan Global</h2>
+    <p class="tagline">Pemanasan global menyebabkan berbagai perubahan fisik, biologis, dan sosial yang mengancam kehidupan di bumi.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="three-col">
+    <div class="box">
+      <h3>Fisik & Geofisik</h3>
+      <ul>
+        <li>Pencairan es kutub & gletser</li>
+        <li>Kenaikan permukaan laut</li>
+        <li>Peningkatan suhu rata-rata bumi</li>
+        <li>Pengasaman laut (ocean acidification)</li>
+        <li>Perubahan pola hujan</li>
+      </ul>
+    </div>
+    <div class="box green">
+      <h3>Ekologi & Biodiversitas</h3>
+      <ul>
+        <li>Pemutihan terumbu karang</li>
+        <li>Kepunahan spesies yang tidak dapat beradaptasi</li>
+        <li>Pergeseran habitat ke kutub/ketinggian</li>
+        <li>Gangguan migrasi satwa</li>
+        <li>Perubahan musim berbunga</li>
+      </ul>
+    </div>
+    <div class="box orange">
+      <h3>Sosial & Ekonomi</h3>
+      <ul>
+        <li>Gagal panen & krisis pangan</li>
+        <li>Tenggelamnya pulau kecil & daerah pesisir</li>
+        <li>Migrasi paksa (pengungsi iklim)</li>
+        <li>Bencana cuaca ekstrem lebih sering</li>
+        <li>Penyebaran penyakit tropis ke daerah baru</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box purple">
+    <h3>Bencana Iklim yang Meningkat Frekuensinya</h3>
+    <ul>
+      <li><strong>Banjir bandang:</strong> Intensitas hujan meningkat</li>
+      <li><strong>Kekeringan panjang:</strong> Pola hujan berubah, evaporasi meningkat</li>
+      <li><strong>Badai & topan:</strong> Laut hangat memberikan lebih banyak energi pada badai</li>
+      <li><strong>Kebakaran hutan:</strong> Suhu panas dan kekeringan memicu kebakaran</li>
+      <li><strong>Gelombang panas (heatwave):</strong> Suhu ekstrem yang mematikan</li>
+    </ul>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p26')">← Topik 26</button>
+    <button class="btn primary" onclick="showPageById('p28')">Topik 28 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 28 -->
+<div id="page-p28" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 28 · PERUBAHAN IKLIM</div>
+    <h2>Gejala Perubahan Iklim</h2>
+    <p class="tagline">Tanda-tanda yang dapat diamati yang menunjukkan bahwa iklim bumi sedang berubah secara signifikan.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Gejala yang Dapat Diamati Secara Langsung</h3>
+    <ul>
+      <li><strong>Kenaikan suhu rata-rata global:</strong> Rata-rata suhu bumi naik ±1,1°C sejak era pra-industri</li>
+      <li><strong>Pencairan lapisan es:</strong> Lapisan es Greenland dan Antartika terus menyusut</li>
+      <li><strong>Kenaikan muka air laut:</strong> Naik sekitar 3,3 mm/tahun dalam beberapa dekade terakhir</li>
+      <li><strong>Perubahan pola hujan:</strong> Beberapa daerah lebih basah, beberapa lebih kering</li>
+      <li><strong>Musim yang bergeser:</strong> Musim semi datang lebih awal, musim gugur lebih lambat</li>
+      <li><strong>Pemutihan karang massal:</strong> Suhu laut meningkat → zooxanthellae keluar → karang memutih</li>
+      <li><strong>Pergeseran wilayah spesies:</strong> Hewan dan tumbuhan bergerak menuju kutub atau ketinggian lebih tinggi</li>
+    </ul>
+  </div>
+
+  <div class="box orange">
+    <h3>Gejala Iklim Ekstrem</h3>
+    <ul>
+      <li>Badai yang lebih kuat dan lebih sering</li>
+      <li>Kekeringan berkepanjangan di beberapa wilayah</li>
+      <li>Banjir besar akibat hujan ekstrem</li>
+      <li>Gelombang panas yang memecahkan rekor suhu</li>
+      <li>Kebakaran hutan berskala masif (Australia 2019-2020, Amazon)</li>
+    </ul>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p27')">← Topik 27</button>
+    <button class="btn primary" onclick="showPageById('p29')">Topik 29 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 29 -->
+<div id="page-p29" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 29 · PERUBAHAN IKLIM</div>
+    <h2>Efek Rumah Kaca</h2>
+    <p class="tagline">Efek rumah kaca adalah proses alami pemanasan bumi — berbahaya ketika berlebihan akibat aktivitas manusia.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Mekanisme Efek Rumah Kaca</h3>
+    <div class="cycle">
+      <div class="cycle-step">Radiasi Matahari<br>masuk ke bumi</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">Sebagian diserap permukaan bumi → panas</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">Bumi memancarkan radiasi inframerah ke atmosfer</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">Gas rumah kaca menyerap & memantulkan kembali</div>
+      <div class="cycle-arrow">→</div>
+      <div class="cycle-step">Bumi menghangat</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="box green">
+      <h3>Gas Rumah Kaca (GRK)</h3>
+      <table>
+        <tr><th>Gas</th><th>Sumber</th></tr>
+        <tr><td>CO₂</td><td>Pembakaran fosil, deforestasi</td></tr>
+        <tr><td>CH₄ (Metana)</td><td>Peternakan, pertambangan, sampah</td></tr>
+        <tr><td>N₂O</td><td>Pupuk pertanian, pembakaran</td></tr>
+        <tr><td>H₂O (uap air)</td><td>Penguapan alami</td></tr>
+        <tr><td>CFC</td><td>Pendingin, aerosol (sintetis)</td></tr>
+        <tr><td>O₃ (Ozon troposfer)</td><td>Polusi kendaraan</td></tr>
+      </table>
+    </div>
+    <div class="box orange">
+      <h3>Efek Rumah Kaca Alami vs Diperkuat</h3>
+      <ul>
+        <li><strong>Alami:</strong> Normal dan perlu! Tanpanya, suhu bumi −18°C</li>
+        <li><strong>Diperkuat:</strong> Gas GRK berlebih dari aktivitas manusia → bumi terlalu panas</li>
+        <li>Sejak revolusi industri (1850), konsentrasi CO₂ naik dari 280 ppm → >420 ppm</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p28')">← Topik 28</button>
+    <button class="btn primary" onclick="showPageById('p30')">Topik 30 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 30 -->
+<div id="page-p30" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 30 · PERUBAHAN IKLIM</div>
+    <h2>Dampak Perubahan Iklim</h2>
+    <p class="tagline">Perubahan iklim berdampak luas pada ekosistem, manusia, dan perekonomian global secara berkelanjutan.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Dampak terhadap Ekosistem & Biodiversitas</h3>
+    <ul>
+      <li>Pemutihan dan kematian terumbu karang akibat suhu laut meningkat</li>
+      <li>Kepunahan spesies yang tidak mampu beradaptasi cepat</li>
+      <li>Pergeseran zona habitat (spesies bergerak ke kutub/dataran tinggi)</li>
+      <li>Gangguan fenologi: waktu berbunga, migrasi burung, dan masa kawin berubah</li>
+      <li>Invasi spesies asing ke habitat baru yang kini lebih hangat</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="box pink">
+      <h3>Dampak terhadap Manusia</h3>
+      <ul>
+        <li>Krisis pangan: gagal panen akibat kekeringan/banjir</li>
+        <li>Krisis air bersih</li>
+        <li>Tenggelamnya kota pesisir dan pulau kecil</li>
+        <li>Gelombang panas mematikan (terutama lansia)</li>
+        <li>Penyebaran penyakit (malaria, dengue, kolera)</li>
+        <li>Pengungsian massal (climate refugee)</li>
+      </ul>
+    </div>
+    <div class="box purple">
+      <h3>Dampak Ekonomi</h3>
+      <ul>
+        <li>Kerugian pertanian dan perikanan besar-besaran</li>
+        <li>Biaya penanganan bencana iklim meningkat</li>
+        <li>Infrastruktur rusak akibat bencana ekstrem</li>
+        <li>Industri pariwisata pesisir terancam</li>
+        <li>Biaya kesehatan meningkat</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p29')">← Topik 29</button>
+    <button class="btn primary" onclick="showPageById('p31')">Topik 31 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 31 -->
+<div id="page-p31" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 31 · PERUBAHAN IKLIM</div>
+    <h2>Rusaknya Lapisan Ozon</h2>
+    <p class="tagline">Lapisan ozon di stratosfer melindungi bumi dari radiasi UV berbahaya — kini terancam oleh senyawa kimia buatan manusia.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Apa itu Lapisan Ozon?</h3>
+    <ul>
+      <li>Terletak di stratosfer, ketinggian 15–35 km dari permukaan bumi</li>
+      <li>Terdiri dari molekul O₃ (ozon = 3 atom oksigen)</li>
+      <li>Menyerap 95–99% radiasi ultraviolet (UV-B dan UV-C) dari matahari</li>
+      <li>Lubang ozon terbesar berada di Antartika (ditemukan 1985)</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="box orange">
+      <h3>Penyebab Kerusakan Ozon</h3>
+      <ul>
+        <li><strong>CFC (Chlorofluorocarbon):</strong> Dari AC, kulkas, dan aerosol. Satu atom Cl dapat menghancurkan 100.000 molekul O₃</li>
+        <li><strong>Halon:</strong> Alat pemadam kebakaran</li>
+        <li><strong>N₂O:</strong> Dari pupuk dan pembakaran</li>
+        <li><strong>CCl₄ & CH₃Br:</strong> Pelarut industri dan pestisida</li>
+      </ul>
+    </div>
+    <div class="box pink">
+      <h3>Dampak Rusaknya Ozon</h3>
+      <ul>
+        <li>Kanker kulit meningkat (UV merusak DNA sel kulit)</li>
+        <li>Katarak dan kerusakan mata</li>
+        <li>Penurunan sistem imun manusia</li>
+        <li>Kerusakan fitoplankton → gangguan rantai makanan laut</li>
+        <li>Menurunkan hasil panen pertanian</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box green">
+    <h3>Upaya Pemulihan: Protokol Montreal (1987)</h3>
+    <p>Perjanjian internasional untuk menghentikan produksi CFC dan zat perusak ozon lainnya. Berkat protokol ini, lapisan ozon menunjukkan tanda-tanda pemulihan dan diproyeksikan pulih penuh sekitar tahun 2065.</p>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p30')">← Topik 30</button>
+    <button class="btn primary" onclick="showPageById('p32')">Topik 32 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 32 -->
+<div id="page-p32" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 32 · PERUBAHAN IKLIM</div>
+    <h2>Upaya Mitigasi Dampak Perubahan Iklim</h2>
+    <p class="tagline">Mitigasi adalah serangkaian tindakan untuk mengurangi emisi gas rumah kaca dan memperlambat perubahan iklim.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Mitigasi vs Adaptasi</h3>
+    <div class="two-col">
+      <div>
+        <p><strong style="color:var(--accent1)">Mitigasi:</strong> Mengurangi <em>penyebab</em> perubahan iklim (mengurangi emisi GRK)</p>
+      </div>
+      <div>
+        <p><strong style="color:var(--accent3)">Adaptasi:</strong> Menyesuaikan diri dengan <em>dampak</em> perubahan iklim yang sudah/akan terjadi</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="box green">
+      <h3>Mitigasi Energi</h3>
+      <ul>
+        <li>Beralih ke energi terbarukan (surya, angin, air, panas bumi)</li>
+        <li>Meningkatkan efisiensi energi di industri dan bangunan</li>
+        <li>Penggunaan kendaraan listrik</li>
+        <li>Mengembangkan teknologi penyimpanan karbon (CCS)</li>
+      </ul>
+    </div>
+    <div class="box purple">
+      <h3>Mitigasi Kehutanan</h3>
+      <ul>
+        <li>Menghentikan deforestasi (REDD+)</li>
+        <li>Penghijauan dan reboisasi</li>
+        <li>Pengelolaan hutan berkelanjutan</li>
+        <li>Restorasi gambut (gambut = penyimpan karbon besar)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="box orange">
+      <h3>Mitigasi Pertanian & Limbah</h3>
+      <ul>
+        <li>Mengurangi emisi metana dari peternakan</li>
+        <li>Pengolahan limbah organik menjadi biogas</li>
+        <li>Pupuk organik menggantikan pupuk sintetis</li>
+        <li>Mengurangi pembakaran jerami/sampah</li>
+      </ul>
+    </div>
+    <div class="box pink">
+      <h3>Kebijakan & Sosial</h3>
+      <ul>
+        <li>Perjanjian Paris (2015): Membatasi kenaikan suhu < 2°C</li>
+        <li>Pajak karbon (carbon tax)</li>
+        <li>Perdagangan emisi (cap and trade)</li>
+        <li>Pendidikan lingkungan dan gaya hidup rendah karbon</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p31')">← Topik 31</button>
+    <button class="btn primary" onclick="showPageById('p33')">Topik 33 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 33 -->
+<div id="page-p33" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 33 · PERUBAHAN IKLIM</div>
+    <h2>Penyebab Perubahan Iklim</h2>
+    <p class="tagline">Perubahan iklim dipicu oleh kombinasi faktor alami dan aktivitas manusia yang mempercepat pemanasan global.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="two-col">
+    <div class="box">
+      <h3>Penyebab Alami</h3>
+      <ul>
+        <li><strong>Variasi aktivitas matahari:</strong> Siklus bintik matahari (11 tahun) mempengaruhi energi yang diterima bumi</li>
+        <li><strong>Variasi orbit bumi (Milankovitch):</strong> Perubahan jarak dan sudut orbit bumi terhadap matahari</li>
+        <li><strong>Aktivitas vulkanik:</strong> Letusan gunung api mengeluarkan SO₂ dan abu → efek pendinginan jangka pendek</li>
+        <li><strong>Arus laut:</strong> Perubahan sirkulasi termohaline mempengaruhi distribusi panas</li>
+        <li><strong>Pergeseran lempeng tektonik:</strong> Mengubah letak benua dan pola arus laut jangka sangat panjang</li>
+      </ul>
+    </div>
+    <div class="box orange">
+      <h3>Penyebab Antropogenik (Manusia)</h3>
+      <ul>
+        <li><strong>Pembakaran bahan bakar fosil:</strong> Batu bara, minyak bumi, gas alam → CO₂ dan CH₄</li>
+        <li><strong>Deforestasi:</strong> Hutan menyerap CO₂; penebangan melepaskan simpanan karbon</li>
+        <li><strong>Industri:</strong> Semen, baja, dan kimia melepaskan CO₂ dan N₂O</li>
+        <li><strong>Pertanian:</strong> Sawah (CH₄), peternakan (CH₄), pupuk sintetis (N₂O)</li>
+        <li><strong>Sampah dan TPA:</strong> Dekomposisi anaerobik sampah organik → CH₄</li>
+        <li><strong>CFC dari pendingin:</strong> Refrigerant dan aerosol lama</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box green">
+    <h3>Kontribusi Gas Rumah Kaca terhadap Perubahan Iklim</h3>
+    <table>
+      <tr><th>Gas</th><th>Kontribusi</th><th>Potensi Pemanasan (GWP 100 tahun)</th></tr>
+      <tr><td>CO₂</td><td>~65%</td><td>1 (referensi)</td></tr>
+      <tr><td>CH₄ (Metana)</td><td>~16%</td><td>28× CO₂</td></tr>
+      <tr><td>N₂O</td><td>~6%</td><td>265× CO₂</td></tr>
+      <tr><td>Gas F (CFC, HFC)</td><td>~2%</td><td>Ribuan × CO₂</td></tr>
+    </table>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p32')">← Topik 32</button>
+    <button class="btn primary" onclick="showPageById('p34')">Topik 34 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 34 -->
+<div id="page-p34" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 34 · PERUBAHAN IKLIM</div>
+    <h2>Gejala Perubahan Iklim (Lanjutan)</h2>
+    <p class="tagline">Indikator ilmiah tambahan yang dikonfirmasi oleh data observasi jangka panjang dari seluruh dunia.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Indikator Berbasis Data Ilmiah</h3>
+    <table>
+      <tr><th>Indikator</th><th>Tren yang Teramati</th></tr>
+      <tr><td>Suhu rata-rata global</td><td>Naik ±1,1°C sejak 1850; 10 tahun terpanas terjadi setelah tahun 2010</td></tr>
+      <tr><td>Volume es laut Arktik</td><td>Berkurang hingga 40% dibanding pertengahan abad ke-20</td></tr>
+      <tr><td>Ketinggian muka air laut</td><td>Naik rata-rata 3,3 mm/tahun; percepatan terdeteksi</td></tr>
+      <tr><td>Konsentrasi CO₂ atmosfer</td><td>Melampaui 420 ppm (tertinggi dalam 3 juta tahun)</td></tr>
+      <tr><td>Keasaman laut</td><td>pH laut turun dari 8,2 → 8,1 (30% lebih asam)</td></tr>
+      <tr><td>Intensitas badai</td><td>Badai kategori 4–5 meningkat proporsinya</td></tr>
+    </table>
+  </div>
+
+  <div class="box purple">
+    <h3>Gejala Biologis (Bioindiakator Perubahan Iklim)</h3>
+    <ul>
+      <li>Migrasi burung lebih awal di musim semi</li>
+      <li>Musim berbunga pohon maju beberapa hari per dekade</li>
+      <li>Batas distribusi spesies bergeser ke utara (belahan bumi utara) atau ke ketinggian lebih tinggi</li>
+      <li>Pemutihan karang massal lebih sering (bleaching events)</li>
+      <li>Mismatch fenotologi: mangsa dan predator kehilangan sinkronisasi musim</li>
+    </ul>
+  </div>
+
+  <div class="box green">
+    <h3>El Niño & La Niña dan Perubahan Iklim</h3>
+    <ul>
+      <li><strong>El Niño:</strong> Pemanasan anomali Samudra Pasifik → kekeringan di Australia/Asia Tenggara, banjir di Amerika</li>
+      <li><strong>La Niña:</strong> Pendinginan anomali Pasifik → efek berlawanan dengan El Niño</li>
+      <li>Pemanasan global diduga memperparah intensitas dan frekuensi El Niño ekstrem</li>
+    </ul>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p33')">← Topik 33</button>
+    <button class="btn primary" onclick="showPageById('p35')">Topik 35 →</button>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 35 -->
+<div id="page-p35" class="page">
+<div class="content-page">
+  <div class="page-header">
+    <div class="topic-num">TOPIK 35 · PERUBAHAN IKLIM</div>
+    <h2>Penyebab Perubahan Iklim (Lanjutan)</h2>
+    <p class="tagline">Tinjauan mendalam mengenai sektor-sektor utama penghasil emisi dan mekanisme umpan balik iklim.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="box">
+    <h3>Sektor Penghasil Emisi GRK Terbesar (Global)</h3>
+    <table>
+      <tr><th>Sektor</th><th>Kontribusi (%)</th><th>Gas Utama</th></tr>
+      <tr><td>Energi (listrik & panas)</td><td>~25%</td><td>CO₂</td></tr>
+      <tr><td>Pertanian, Kehutanan, Penggunaan Lahan</td><td>~24%</td><td>CO₂, CH₄, N₂O</td></tr>
+      <tr><td>Industri & manufaktur</td><td>~21%</td><td>CO₂, CH₄</td></tr>
+      <tr><td>Transportasi</td><td>~14%</td><td>CO₂</td></tr>
+      <tr><td>Bangunan (pemanas/pendingin)</td><td>~6%</td><td>CO₂, CFC</td></tr>
+      <tr><td>Limbah & sampah</td><td>~3%</td><td>CH₄, N₂O</td></tr>
+    </table>
+  </div>
+
+  <div class="box purple">
+    <h3>Mekanisme Umpan Balik (Feedback Loop) Iklim</h3>
+    <ul>
+      <li><strong>Umpan balik es-albedo:</strong> Es mencair → permukaan gelap laut/tanah menyerap lebih banyak panas → makin panas → makin banyak es mencair (lingkaran setan)</li>
+      <li><strong>Umpan balik uap air:</strong> Suhu naik → lebih banyak uap air di atmosfer → uap air adalah GRK → suhu makin naik</li>
+      <li><strong>Pencairan permafrost:</strong> Lapisan tanah beku di tundra mencair → melepaskan CH₄ dan CO₂ yang tersimpan ribuan tahun → percepatan pemanasan</li>
+      <li><strong>Umpan balik awan:</strong> Kompleks — awan bisa memantulkan (pendinginan) atau menjebak panas (pemanasan) tergantung jenis dan ketinggian</li>
+    </ul>
+  </div>
+
+  <div class="box orange">
+    <h3>Tipping Points (Titik Kritis) Iklim</h3>
+    <p style="margin-bottom:10px">Ambang batas di mana perubahan iklim menjadi tak terkendali dan tidak dapat dibalik:</p>
+    <ul>
+      <li>Pencairan lembaran es Greenland (tidak dapat balik di atas +1,5–2°C)</li>
+      <li>Kematian hutan Amazon (menjadi sabana)</li>
+      <li>Pencairan permafrost Siberia besar-besaran</li>
+      <li>Hilangnya es laut Arktik di musim panas</li>
+      <li>Kematian terumbu karang tropis secara masif</li>
+    </ul>
+  </div>
+
+  <div class="box green">
+    <h3>Ringkasan: Keterkaitan Semua Topik</h3>
+    <ul>
+      <li>Aktivitas manusia (industri, deforestasi, pertanian) → ↑ GRK → Efek rumah kaca → Pemanasan global</li>
+      <li>Pemanasan global → Perubahan iklim → Gejala fisik & biologis</li>
+      <li>Perubahan iklim → Rusaknya ekosistem (terumbu karang, hutan, es) → Kepunahan spesies</li>
+      <li>Perubahan iklim → Dampak sosial (bencana, krisis pangan, migrasi)</li>
+      <li>Mitigasi + Adaptasi = upaya manusia untuk membatasi dampak</li>
+    </ul>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn" onclick="showPageById('p34')">← Topik 34</button>
+    <button class="btn primary" onclick="showPageById('home')">🏠 Kembali ke Beranda</button>
+  </div>
+</div>
+</div>
+
+</main>
+
+<script>
+  function showPage(id, navEl) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    // Show target
+    const target = document.getElementById('page-' + id);
+    if (target) target.classList.add('active');
+    // Update nav
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    if (navEl) navEl.classList.add('active');
+    // Scroll main to top
+    window.scrollTo(0, 0);
+    // Close sidebar on mobile
+    if (window.innerWidth < 900) {
+      document.getElementById('sidebar').classList.remove('open');
+    }
+  }
+
+  function showPageById(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + id);
+    if (target) target.classList.add('active');
+    // Sync sidebar highlight
+    document.querySelectorAll('.nav-item').forEach(n => {
+      n.classList.remove('active');
+    });
+    window.scrollTo(0, 0);
+  }
+
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+  }
+
+  // Close sidebar when clicking outside on mobile
+  document.getElementById('main').addEventListener('click', () => {
+    if (window.innerWidth < 900) {
+      document.getElementById('sidebar').classList.remove('open');
+    }
+  });
+</script>
+</body>
+</html>
